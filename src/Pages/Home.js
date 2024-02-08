@@ -1,13 +1,29 @@
 import React, { useEffect, useState } from "react";
 import db from "../firebase";
-import { query, collection, getDocs } from "firebase/firestore";
+import {
+  query,
+  collection,
+  getDocs,
+  setDoc,
+  doc,
+  addDoc,
+} from "firebase/firestore";
 import Course from "../components/Course";
 import Select from "react-dropdown-select";
 import { useSelector, useDispatch } from "react-redux";
-import { setCoursesDetails } from "../features/courseSlice";
+import {
+  getCoursesDetailsByInstrutor,
+  getCoursesDetailsByName,
+  setCoursesDetails,
+} from "../features/courseSlice";
 
 const Home = () => {
-  const [value, setValue] = useState(1);
+  const [value, setValue] = useState([
+    {
+      value: 1,
+      label: "Course Name",
+    },
+  ]);
   const [info, setInfo] = useState("");
   const [loading, setLoading] = useState(true);
 
@@ -26,10 +42,7 @@ const Home = () => {
   };
 
   useEffect(() => {
-    return () => {
-      console.log("+++++++++++++++++++++++");
-      getData();
-    };
+    getData();
   }, []);
 
   const options = [
@@ -43,9 +56,16 @@ const Home = () => {
     },
   ];
 
-  const actionHandler = () => {
-    console.log("Droup down>> ", value[0].value);
+  const actionHandler = async () => {
+    console.log("Droup down>> ", value[0]);
     console.log("Infor >> ", info);
+
+    if (value[0].value === 1) {
+      dispatch(getCoursesDetailsByName(info));
+    } else {
+      dispatch(getCoursesDetailsByInstrutor(info));
+    }
+
   };
 
   return (

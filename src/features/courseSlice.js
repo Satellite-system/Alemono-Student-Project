@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = [];
-//   data: [
 //     // {
 //     //   id: 1, // Unique identifier for the course
 //     //   name: "Introduction to React Native",
@@ -45,28 +43,41 @@ const initialState = [];
 //     //   ],
 //     // },
 //   ],
-// };
 
 const courseSlice = createSlice({
   name: "course",
-  initialState,
+  initialState: [],
   reducers: {
     setCoursesDetails: (state, action) => {
       //   console.log(">>> DATA FOUnd >> ", action.payload);
+      state.splice(0, state.length);
       if (state.length === 0) {
         action.payload.forEach((doc) => {
           state.push(doc.data());
         });
       }
     },
-    // setCourseLikes: state =>{
-    //     state.name = null;
-    //     state.email = null;
-    //     state.photo = null;
-    // },
+    getCoursesDetailsByName: (state, action) => {
+      const substring = action.payload;
+      console.log("Substring>> ", substring);
+
+      // const filteredState =
+      return state.filter((item) => item.name.includes(substring));
+    },
+    getCoursesDetailsByInstrutor: (state, action) => {
+      const substring = action.payload;
+      console.log("Instructor Substring>> ", substring);
+
+      // const filteredState =
+      return state.filter((item) => item.instructor.includes(substring));
+    },
   },
 });
 
-export const { setCoursesDetails } = courseSlice.actions;
+export const {
+  setCoursesDetails,
+  getCoursesDetailsByName,
+  getCoursesDetailsByInstrutor,
+} = courseSlice.actions;
 
 export default courseSlice.reducer;
