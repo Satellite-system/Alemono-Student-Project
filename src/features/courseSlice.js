@@ -53,9 +53,11 @@ const courseSlice = createSlice({
   reducers: {
     setCoursesDetails: (state, action) => {
       //   console.log(">>> DATA FOUnd >> ", action.payload);
-      action.payload.forEach((doc) => {
-        state.push(doc.data());
-      });
+      if (state.length === 0) {
+        action.payload.forEach((doc) => {
+          state.push(doc.data());
+        });
+      }
     },
     // setCourseLikes: state =>{
     //     state.name = null;
