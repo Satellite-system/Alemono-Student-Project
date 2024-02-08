@@ -1,0 +1,22 @@
+.navbar {
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   height: 8vh;
+   padding: 1vh 2vw;
+   background-color: #7fffd4;
+   align-items: center;
+   position: fixed;
+   width: 100vw;
+   top: 0;
+   overflow-y: hidden;
+}
+
+.navbar_logoImg {
+   height: 52px;
+}
+
+.navbar_userContainer {
+   color: black;
+   margin-right: 25vw;
+}
