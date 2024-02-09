@@ -45,7 +45,7 @@ const userSlice = createSlice({
           item = { ...item, completed: !item.completed };
         }
         // console.log("::::: ", item);
-        // return item;
+        return item;
       });
 
       // console.log("After >>> ", state.course[0]);
