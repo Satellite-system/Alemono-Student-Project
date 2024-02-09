@@ -1,12 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import { db, realTimedatabase } from "../firebase";
+import { db } from "../firebase";
 import {
   query,
   collection,
   getDocs,
-  setDoc,
-  doc,
-  addDoc,
 } from "firebase/firestore";
 import Course from "../components/Course";
 import Select from "react-dropdown-select";
@@ -16,7 +14,6 @@ import {
   getCoursesDetailsByName,
   setCoursesDetails,
 } from "../features/courseSlice";
-import { get, onValue, ref } from "firebase/database";
 
 const Home = () => {
   const [value, setValue] = useState([
@@ -26,7 +23,6 @@ const Home = () => {
     },
   ]);
   const [info, setInfo] = useState("");
-  const [loading, setLoading] = useState(true);
 
   // console.log("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
   const dispatch = useDispatch();

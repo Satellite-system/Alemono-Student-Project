@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { toggleCourseCompletion } from "../../features/userSlice";
-import { collection, doc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { db, realTimedatabase } from "../../firebase";
 import "./Style.css";
-import { get, onValue, ref, update } from "firebase/database";
+import { ref, update } from "firebase/database";
 
 const ActionBtn = ({ completed, id, res, like }) => {
   const dispatch = useDispatch();

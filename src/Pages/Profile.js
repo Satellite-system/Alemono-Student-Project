@@ -1,8 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { query, collection, getDocs, doc, getDoc } from "firebase/firestore";
+import { collection, getDocs, doc, getDoc } from "firebase/firestore";
 import { db, realTimedatabase } from "../firebase";
-import { getUserDetails, toggleCourseCompletion } from "../features/userSlice";
+import { getUserDetails } from "../features/userSlice";
 import ActionBtn from "../components/CompleteBtn";
 import { get, onValue, ref } from "firebase/database";
 
