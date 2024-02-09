@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Expandable from "../components/Expandable";
@@ -16,14 +15,7 @@ const CoursePage = () => {
     const q = query(collection(db, "syllabus"));
 
     const querySnapshot = await getDocs(q);
-    var index = 0;
     querySnapshot.forEach((doc) => {
-      console.log(":::: Syllabus-Data >>>", doc.data());
-      data.syllabus[index] = doc.data();
-      console.log(">> Syll :: ", data.syllabus[index]);
-      console.log("Index >> ", index);
-      index++;
-
       setSyllabus((data) => [...data, doc.data()]);
     });
   };
