@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import db from "../firebase";
+import { db, realTimedatabase } from "../firebase";
 import {
   query,
   collection,
@@ -16,6 +16,7 @@ import {
   getCoursesDetailsByName,
   setCoursesDetails,
 } from "../features/courseSlice";
+import { get, onValue, ref } from "firebase/database";
 
 const Home = () => {
   const [value, setValue] = useState([
@@ -27,17 +28,17 @@ const Home = () => {
   const [info, setInfo] = useState("");
   const [loading, setLoading] = useState(true);
 
-  console.log("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
+  // console.log("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
   const dispatch = useDispatch();
   const course = useSelector((state) => state.course);
 
-  console.log("Object Type >> ", course);
+  // console.log("Object Type >> ", course);
 
   // Get a list of courses from your database
   const getData = async () => {
     const q = query(collection(db, "CourseModel"));
     const querySnapshot = await getDocs(q);
-    console.log("QUErrryyyyyyyy ", querySnapshot);
+    // console.log("QUErrryyyyyyyy ", querySnapshot);
     dispatch(setCoursesDetails(querySnapshot));
   };
 
@@ -65,7 +66,6 @@ const Home = () => {
     } else {
       dispatch(getCoursesDetailsByInstrutor(info));
     }
-
   };
 
   return (

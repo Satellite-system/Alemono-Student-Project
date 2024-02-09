@@ -28,7 +28,7 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     getUserDetails: (state, action) => {
-      console.log("Inside SLice >> ", action.payload);
+      // console.log("Inside SLice >> ", action.payload);
       state.data = "";
       state.course = [];
       state.data = action.payload.data;
@@ -38,7 +38,7 @@ const userSlice = createSlice({
       });
     },
     toggleCourseCompletion: (state, action) => {
-      console.log("Inside SLice ", action.payload);
+      // console.log("Inside SLice ", action.payload);
       // console.log("Before >>> ", state.course[0]);
       state.course.map((item) => {
         if (item.id === action.payload) {

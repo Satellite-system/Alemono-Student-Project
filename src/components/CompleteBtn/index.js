@@ -1,13 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toggleCourseCompletion } from "../../features/userSlice";
 import { collection, doc, updateDoc } from "firebase/firestore";
-import db from "../../firebase";
+import { db, realTimedatabase } from "../../firebase";
+import "./Style.css";
+import { get, onValue, ref, update } from "firebase/database";
 
-const CompletedBtn = ({ completed, id, res }) => {
+const ActionBtn = ({ completed, id, res, like }) => {
   const dispatch = useDispatch();
   const [clicked, setClicked] = useState(completed);
-  console.log(">>> Resoirse", res);
+  var noOfLikes = like[res.name]?.like;
+  // console.log(">>>> Likes ::: ", like);
+  // console.log("ZZZZZZ  ::: ", noOfLikes);
+  // console.log(">>> Resoirse", res);
+
+  const UpdateLikeFxn = () => {
+    console.log("BTN CLICKED---");
+    const usersRef = ref(realTimedatabase, "courses/" + res.name);
+    update(usersRef, { like: noOfLikes + 1 }).then(() => {
+      console.log("Sucess!!!!!");
+    });
+  };
 
   const clickHandler = async () => {
     console.log("<<< ", id);
@@ -24,14 +37,21 @@ const CompletedBtn = ({ completed, id, res }) => {
   };
 
   return (
-    <div>
+    <div className="completeBtn">
       {clicked ? (
         "Completed"
       ) : (
         <button onClick={() => clickHandler()}>Mark As Completed</button>
       )}
+      <div className="ActionBtn_div">
+        Likes: {noOfLikes}
+        {/* {like[res.name].like} */}
+        <button onClick={() => UpdateLikeFxn()} className="completeBtn_btn">
+          Like
+        </button>
+      </div>
     </div>
   );
 };
 
-export default CompletedBtn;
+export default ActionBtn;

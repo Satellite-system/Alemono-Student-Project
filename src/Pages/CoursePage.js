@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Expandable from "../components/Expandable";
 import { collection, getDocs, query } from "firebase/firestore";
-import db from "../firebase";
+import { db } from "../firebase";
 
 const CoursePage = () => {
   const location = useLocation();
@@ -11,7 +11,7 @@ const CoursePage = () => {
   // console.log(">>>> Next Page >> ", location.state);
 
   const getSyllabusList = async () => {
-    console.log("------- Inside FXn ---------");
+    // console.log("------- Inside FXn ---------");
     const q = query(collection(db, "syllabus"));
 
     const querySnapshot = await getDocs(q);

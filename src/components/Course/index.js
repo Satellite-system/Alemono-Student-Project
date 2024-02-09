@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const Course = ({ data }) => {
   const navigate = useNavigate();
-  console.log("Inside Course >> ", data);
+  // console.log("Inside Course >> ", data);
 
   const handleClick = () => {
     navigate("/course", { state: JSON.stringify(data) });

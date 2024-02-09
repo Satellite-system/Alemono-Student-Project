@@ -1,0 +1,9 @@
+.completeBtn {
+   display: flex;
+   justify-content: space-between;
+   margin: 0 10%;
+}
+
+.completeBtn_btn {
+   margin-left: 10px;
+}

@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { query, collection, getDocs, doc, getDoc } from "firebase/firestore";
-import db from "../firebase";
+import { db, realTimedatabase } from "../firebase";
 import { getUserDetails, toggleCourseCompletion } from "../features/userSlice";
-import CompletedBtn from "../components/CompleteBtn";
+import ActionBtn from "../components/CompleteBtn";
+import { get, onValue, ref } from "firebase/database";
 
 const Profile = () => {
   const data = useSelector((state) => state.user);
@@ -21,13 +22,26 @@ const Profile = () => {
     dispatch(getUserDetails({ data: docSnap.data(), course: colSnap }));
   };
 
+  const [like, setLike] = useState(0);
+
   useEffect(() => {
+    const usersRef = ref(realTimedatabase, "courses");
+    get(usersRef).then((snapshot) => {
+      if (snapshot.exists()) {
+        setLike(snapshot.val());
+      } else {
+        console.log("No Data Avai;able");
+      }
+    });
+
+    onValue(usersRef, (snapshot) => {
+      setLike(snapshot.val());
+    });
     return () => {
       // console.log("UUUUUUUUUUUUUUUUUUUUUUU");
       getUserData();
     };
   }, []);
-
 
   return (
     <div className="container">
@@ -41,8 +55,12 @@ const Profile = () => {
           <p>Instructor: {res.instructor}</p>
           <p>Due Date: {res.due_date}</p>
           <p>Progress: {res.progress_bar}/100</p>
-          <CompletedBtn completed={res.completed} id={res.id} res={res}/>
-          
+          <ActionBtn
+            completed={res.completed}
+            id={res.id}
+            res={res}
+            like={like}
+          />
         </div>
       ))}
     </div>
